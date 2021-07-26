@@ -1,0 +1,2 @@
+# blacklink
+Cashlink blacklist
