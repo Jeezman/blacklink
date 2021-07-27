@@ -12,7 +12,7 @@ export default function TabOneScreen() {
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome!</Text>
+          <Text style={styles.title}>Signup Now!</Text>
         </View>
         <View style={styles.footer}>
           <Text style={styles.text_footer}>Full Name:</Text>
