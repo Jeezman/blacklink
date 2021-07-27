@@ -1,34 +1,59 @@
+import { faUnderline } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
-import { StyleSheet, TextInput, Platform } from 'react-native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { StyleSheet, TextInput, Linking, Button, Alert, ScrollView } from 'react-native';
+//import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+//import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Welcome!</Text>
-      </View>
-      <View style={styles.footer}>
-        <Text style={styles.text_footer}>Username:</Text>
-        <View style={styles.action}>
-          <TextInput placeholder="johnny@gravy" style={styles.textInput} autoCapitalize="none" 
-          />
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Welcome!</Text>
         </View>
-        <View style={{marginTop: 10}}>
-          <Text style={styles.text_footer}>Password:</Text>
+        <View style={styles.footer}>
+          <Text style={styles.text_footer}>Username:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="**********" style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="johnny@gravy" style={styles.textInput} autoCapitalize="none" 
             />
-          </View>          
-        </View>
+          </View>
+          <View style={{marginTop: 10}}>
+            <Text style={styles.text_footer}>Password:</Text>
+            <View style={styles.action}>
+              <TextInput secureTextEntry={true} placeholder="**********" style={styles.textInput} autoCapitalize="none" 
+              />
 
+            </View>
+            <Text 
+              style={styles.textPassword}
+              onPress={() => Linking.openURL('http://google.com')}>
+                Forgot Password?
+            </Text>                    
+          </View>
+          <View style={styles.button}>
+            <Button
+              title="Login"
+              color="#000"
+              
+              onPress={() => Alert.alert('Login success!')}
+            />
+          </View>
+          <View style={{flex: 1,  flexDirection: 'row'}}>
+            <Text style={styles.text_footer}>Or </Text>
+            <Text 
+              style={styles.textCreateAccount}
+              onPress={() => Linking.openURL('http://google.com')}>
+                Create Account!
+            </Text>
+          </View>
+
+        </View>
+        
       </View>
-      
-    </View>
+    </ScrollView>
   );
 }
 
@@ -39,12 +64,17 @@ const styles = StyleSheet.create({
     //justifyContent: 'center',
     backgroundColor: '#cecece'
   },
+  scrollView: {
+    backgroundColor: '#fff',
+    
+  },
   header: {
     flex:1,
     justifyContent: 'flex-end',
     backgroundColor: '#cecece',
     paddingHorizontal: 20,
-    paddingBottom: 50
+    paddingVertical: 50,
+    paddingBottom: 30
 },
   footer: {
     flex: 3,
@@ -71,6 +101,21 @@ textInput: {
   paddingLeft:10,
   
 },
+textPassword: {
+  color: '#395697',
+  textDecorationLine: "underline",
+  textDecorationStyle: "solid",
+  textDecorationColor: "#395697",
+},
+textCreateAccount: {
+  color: '#395697',
+  textDecorationLine: "underline",
+  textDecorationStyle: "solid",
+  textDecorationColor: "#395697",
+  marginTop: 4,
+  paddingLeft: 5,
+  
+},
   title: {
     fontSize: 30, 
     textAlign: 'left',
@@ -86,5 +131,8 @@ textInput: {
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  button: {
+    marginTop: 20,
   },
 });
