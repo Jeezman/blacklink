@@ -12,7 +12,7 @@ export default function TabOneScreen() {
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome!</Text>
+          <Text style={styles.title}>SIGNUP</Text>
         </View>
         <View style={styles.footer}>
           <Text style={styles.text_footer}>Full Name:</Text>
@@ -30,7 +30,7 @@ export default function TabOneScreen() {
             <TextInput placeholder="+234 8063343912" style={styles.textInput} autoCapitalize="none" 
             />
           </View>          
-          <View style={{marginTop: 10}}>
+          <View>
             <Text style={styles.text_footer}>Password:</Text>
             <View style={styles.action}>
               <TextInput secureTextEntry={true} placeholder="**********" style={styles.textInput} autoCapitalize="none" 
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //alignItems: 'center',
     //justifyContent: 'center',
-    backgroundColor: '#cecece'
+    backgroundColor: '#fff'
   },
   scrollView: {
     backgroundColor: '#fff',
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flex:1,
-    justifyContent: 'flex-end',
-    backgroundColor: '#cecece',
+    justifyContent: 'center',
+    //backgroundColor: '#cecece',
     paddingHorizontal: 20,
     paddingVertical: 50,
     paddingBottom: 30
@@ -80,10 +80,11 @@ const styles = StyleSheet.create({
   footer: {
     flex: 3,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    //borderTopLeftRadius: 30,
+    //borderTopRightRadius: 30,
     paddingHorizontal: 20,
-    paddingVertical: 30
+    paddingVertical: 30,
+    
   },
   text_header: {
     color: '#fff',
@@ -93,13 +94,16 @@ const styles = StyleSheet.create({
 },
   text_footer: {
     color: '#000',
-    fontSize: 18
+    fontSize: 18,
+    paddingBottom:5,
+    marginTop:10,
 },
 textInput: {
   flex: 1,
   height: 40,
-  borderWidth: 1,
   paddingLeft:10,
+  //backgroundColor:"#ced4da",
+  outlineStyle: 'none',
   
 },
 textPassword: {
@@ -119,15 +123,22 @@ textCreateAccount: {
 },
   title: {
     fontSize: 30, 
-    textAlign: 'left',
+    textAlign: 'center',
     fontWeight: 'bold',
   },
   action: {
     flexDirection: 'row',
-    marginTop: 10,
-    
-    paddingBottom: 5
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1.5,
+    //borderRadius: 4,
 },
+  userIcon:{
+    paddingLeft:10,
+  },
+  eyeIcon:{
+    paddingRight: 10,
+  },
   separator: {
     marginVertical: 30,
     height: 1,

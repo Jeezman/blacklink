@@ -16,7 +16,7 @@ import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
+ /*function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
@@ -39,7 +39,7 @@ export default function BottomTabNavigator() {
       />
     </BottomTab.Navigator>
   );
-}
+}*/
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
@@ -51,7 +51,7 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
-function TabOneNavigator() {
+export default function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
@@ -65,7 +65,7 @@ function TabOneNavigator() {
 
 const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
-function TabTwoNavigator() {
+/*function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
@@ -75,4 +75,4 @@ function TabTwoNavigator() {
       />
     </TabTwoStack.Navigator>
   );
-}
+}*/

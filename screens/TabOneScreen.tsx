@@ -47,20 +47,20 @@ const updateConfirmSecureTextEntry = () => {
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome!</Text>
+          <Text style={styles.title}>LOGIN</Text>
         </View>
         <View style={styles.footer}>
           <Text style={styles.text_footer}>Username:</Text>
           <View style={styles.action}>
-            <Icon style={styles.userIcon}   name='user' size={18} color="#000" />
-            <TextInput placeholder="johnny@gravy" style={styles.textInput} autoCapitalize="none" 
+            
+            <TextInput placeholder="Johnny@gravy" style={styles.textInput} autoCapitalize="none" 
             />
           </View>
           <View style={{marginTop: 10}}>
           
             <Text style={styles.text_footer}>Password:</Text>
             <View style={styles.action}>
-              <Feather style={styles.userIcon}  name="lock"  color="#000"  size={18} />
+              
               <TextInput 
               secureTextEntry={data.secureTextEntry ? true : false} 
               onChangeText={(value) => handlePasswordChange(value)}
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //alignItems: 'center',
     //justifyContent: 'center',
-    backgroundColor: '#cecece'
+    backgroundColor: '#fff'
   },
   scrollView: {
     backgroundColor: '#fff',
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flex:1,
-    justifyContent: 'flex-end',
-    backgroundColor: '#cecece',
+    justifyContent: 'center',
+    //backgroundColor: '#cecece',
     paddingHorizontal: 20,
     paddingVertical: 50,
     paddingBottom: 30
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
   footer: {
     flex: 3,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    //borderTopLeftRadius: 30,
+    //borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30
   },
@@ -162,6 +162,8 @@ textInput: {
   flex: 1,
   height: 40,
   paddingLeft:10,
+  //backgroundColor:"#ced4da",
+  outlineStyle: 'none',
   
 },
 textPassword: {
@@ -181,7 +183,7 @@ textCreateAccount: {
 },
   title: {
     fontSize: 30, 
-    textAlign: 'left',
+    textAlign: 'center',
     fontWeight: 'bold',
   },
   action: {
@@ -189,7 +191,7 @@ textCreateAccount: {
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1.5,
-    borderRadius: 4,
+    //borderRadius: 4,
 },
   userIcon:{
     paddingLeft:10,
