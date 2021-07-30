@@ -102,8 +102,6 @@ textInput: {
   flex: 1,
   height: 40,
   paddingLeft:10,
-  //backgroundColor:"#ced4da",
-  outlineStyle: 'none',
   
 },
 textPassword: {
