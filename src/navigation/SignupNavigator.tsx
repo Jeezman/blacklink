@@ -17,7 +17,7 @@ export default function SignupNavigator() {
   return (
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen
-        name="SignupScreen"
+        name="Signup"
         component={SignupScreen}
         options={{ headerTitle: 'Signup' }}
       />

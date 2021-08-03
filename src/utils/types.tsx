@@ -14,10 +14,10 @@ export type BottomTabParamList = {
 };
 
 export type TabOneParamList = {
-  TabOneScreen: undefined;
+  Login: undefined;
   NotFound: undefined;
 };
 
 export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+  Signup: undefined;
 };

@@ -12,7 +12,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../utils/types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -55,7 +55,7 @@ export default function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="LoginScreen"
+        name="Login"
         component={LoginScreen}
         options={{ headerTitle: 'Login' }}
       />
