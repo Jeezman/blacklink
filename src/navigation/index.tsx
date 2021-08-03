@@ -7,14 +7,9 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
-
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen'
-import { RootStackParamList } from '../types';
-import TabOneNavigator from './BottomTabNavigator';
-import TabTwoNavigator from './TabTwoNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import LoginScreen from '../screens/LoginScreen';
+import SignupScreen from '../screens/SignupScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -33,8 +28,8 @@ const Stack = createStackNavigator();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="TabOneScreen" component={TabOneNavigator} options={{title: 'Login'}}/>
-      <Stack.Screen name="TabTwoScreen" component={TabTwoNavigator} options={{title: 'Signup'}} />
+      <Stack.Screen name="Login" component={LoginScreen} options={{title: 'Login'}}/>
+      <Stack.Screen name="Signup" component={SignupScreen} options={{title: 'Signup'}} />
 
     </Stack.Navigator>
   );

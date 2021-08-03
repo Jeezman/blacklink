@@ -104,7 +104,7 @@ const updateConfirmSecureTextEntry = () => {
           </View>
           <View style={{flex: 1,  flexDirection: 'row'}}>
             <Text style={styles.text_footer}>Or </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('TabTwoScreen')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
               <Text 
                 style={styles.textCreateAccount}
                 >
