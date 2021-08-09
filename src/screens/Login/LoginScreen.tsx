@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, TextInput, Linking, Button, Alert, ScrollView, TouchableOpacity,  } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Feather } from '@expo/vector-icons';
-import { Text, View } from '../components/Themed';
+import { Text, View } from '../../components/Themed';
 
 export default function LoginScreen({navigation}: any) {
 
@@ -111,8 +110,8 @@ const updateConfirmSecureTextEntry = () => {
                   Create Account!
               </Text>
             </TouchableOpacity>
+           
           </View>
-
         </View>
         
       </View>

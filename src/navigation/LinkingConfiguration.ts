@@ -12,14 +12,24 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Home: {
             screens: {
-              Login: 'one',
+              Home: 'home',
             },
           },
-          TabTwo: {
+          Login: {
             screens: {
-              Signup: 'two',
+              Login: 'login',
+            },
+          },
+          Signup: {
+            screens: {
+              Signup: 'signup',
+            },
+          },
+          AddCasher: {
+            screens: {
+              AddCasher: 'addCasher',
             },
           },
         },
