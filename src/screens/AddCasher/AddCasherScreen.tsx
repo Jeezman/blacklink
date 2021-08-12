@@ -1,53 +1,48 @@
-import { faUnderline } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { StyleSheet, TextInput, Linking, Button, Alert, ScrollView } from 'react-native';
-//import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-//import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { Text, View } from '../../components/Themed';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-
-export default function TabOneScreen() {
+export default function AddCasherScreen() {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>SIGNUP</Text>
+          <Text style={styles.title}>ADD CASHER</Text>
         </View>
         <View style={styles.footer}>
-          <Text style={styles.text_footer}>Full Name:</Text>
-          <View style={styles.action}>
-            <TextInput placeholder="Johnny Gravvy" style={styles.textInput} autoCapitalize="none" 
-            />
-          </View>
           <Text style={styles.text_footer}>Username:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="johnny@gravy" style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="chris@okoye" style={styles.textInput} autoCapitalize="none" 
             />
           </View>
           <Text style={styles.text_footer}>Phone Number:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="+234 8063343912" style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="+234 8063345821" style={styles.textInput} autoCapitalize="none" 
             />
-          </View>          
+          </View>
+          <Text style={styles.text_footer}>Bank:</Text>
+          <View style={styles.action}>
+            <TextInput placeholder="GTBank" style={styles.textInput} autoCapitalize="none" 
+            />
+          </View>                    
           <View>
-            <Text style={styles.text_footer}>Password:</Text>
+            <Text style={styles.text_footer}>Telegram Username (Optional):</Text>
             <View style={styles.action}>
-              <TextInput secureTextEntry={true} placeholder="**********" style={styles.textInput} autoCapitalize="none" 
-              />
+            <TextInput placeholder="Chris Okoye" style={styles.textInput} autoCapitalize="none" 
+            />
             </View>
-            <Text style={styles.text_footer}>Confirm Password:</Text>
+            <Text style={styles.text_footer}>Comments:</Text>
             <View style={styles.action}>
-              <TextInput secureTextEntry={true} placeholder="**********" style={styles.textInput} autoCapitalize="none" 
+              <TextInput multiline = {true} numberOfLines = {4} placeholder="Comments" style={styles.textAreaInput} autoCapitalize="none" 
               />
             </View>                     
           </View>
           <View style={styles.button}>
             <Button
-              title="Signup"
+              title="Add to Blackist"
               color="#000"
               
-              onPress={() => Alert.alert('Signup successful!')}
+              onPress={() => Alert.alert('Add Casher successful!')}
             />
           </View>
 
@@ -103,6 +98,13 @@ textInput: {
   height: 40,
   paddingLeft:10,
   
+},
+textAreaInput:{
+  height:100, 
+  textAlignVertical: 'top',
+  flex:1,
+  paddingTop:4,
+  paddingLeft:10,
 },
 textPassword: {
   color: '#395697',

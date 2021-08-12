@@ -5,23 +5,24 @@
  */
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
-
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen'
-import { RootStackParamList } from '../types';
-import TabOneNavigator from './BottomTabNavigator';
-import TabTwoNavigator from './TabTwoNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import LoginScreen from '../screens/Login/LoginScreen';
+import HomeScreen from '../screens/Home/HomeScreen';
+import SignupScreen from '../screens/Signup/SignupScreen';
+import AddCasherScreen from '../screens/AddCasher/AddCasherScreen';
+import HomeNavigator from './HomeNavigator';
+import LoginNavigator from './LoginNavigator';
+import SignupNavigator from './SignupNavigator';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
+      <DrawerScreen />
     </NavigationContainer>
   );
 }
@@ -29,13 +30,24 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+const DrawerScreen = () => (
+  <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Login" component={LoginScreen} />
+      <Drawer.Screen name="Signup" component={SignupScreen}  />
+      <Drawer.Screen name="Add Casher" component={AddCasherScreen}  />
+  </Drawer.Navigator>
+);
 
-function RootNavigator() {
+function RootNavigator ()  {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="TabOneScreen" component={TabOneNavigator} options={{title: 'Login'}}/>
-      <Stack.Screen name="TabTwoScreen" component={TabTwoNavigator} options={{title: 'Signup'}} />
-
-    </Stack.Navigator>
+    <Stack.Navigator >
+      <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Home'}}/>
+      <Stack.Screen name="Login" component={LoginScreen} options={{title: 'Login'}}/>
+      <Stack.Screen name="Signup" component={SignupScreen} options={{title: 'Signup'}} />
+     <Stack.Screen name="AddCasher" component={AddCasherScreen} options={{title: 'Add Casher'}}/>
+  </Stack.Navigator>
+    
   );
 }

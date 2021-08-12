@@ -1,11 +1,6 @@
-import { faUnderline } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { StyleSheet, TextInput, Linking, Button, Alert, ScrollView } from 'react-native';
-//import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-//import { faUser } from '@fortawesome/free-solid-svg-icons'
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Text, View } from '../../components/Themed';
 
 export default function SignupScreen() {
   return (

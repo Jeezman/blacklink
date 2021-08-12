@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, TextInput, Linking, Button, Alert, ScrollView, TouchableOpacity,  } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Feather } from '@expo/vector-icons';
-import { Text, View } from '../components/Themed';
+import { Text, View } from '../../components/Themed';
 
-export default function TabOneScreen({navigation}: any) {
+export default function LoginScreen({navigation}: any) {
 
   const [data, setData] = React.useState({
     username: '',
@@ -104,15 +103,15 @@ const updateConfirmSecureTextEntry = () => {
           </View>
           <View style={{flex: 1,  flexDirection: 'row'}}>
             <Text style={styles.text_footer}>Or </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('TabTwoScreen')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
               <Text 
                 style={styles.textCreateAccount}
                 >
                   Create Account!
               </Text>
             </TouchableOpacity>
+           
           </View>
-
         </View>
         
       </View>
