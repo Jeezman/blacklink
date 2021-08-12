@@ -16,6 +16,9 @@ import AddCasherScreen from '../screens/AddCasher/AddCasherScreen';
 import HomeNavigator from './HomeNavigator';
 import LoginNavigator from './LoginNavigator';
 import SignupNavigator from './SignupNavigator';
+import BlacklistScreen from '../screens/Blacklist/BlacklistScreen';
+import BlacklistNavigator from './BlacklistNavigator';
+import AddCasherNavigator from './AddCasherNavigator';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -30,13 +33,17 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator();
+const BlacklistStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+
+
 const DrawerScreen = () => (
   <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Login" component={LoginScreen} />
-      <Drawer.Screen name="Signup" component={SignupScreen}  />
-      <Drawer.Screen name="Add Casher" component={AddCasherScreen}  />
+      <Drawer.Screen name="Home" component={HomeNavigator} />
+      <Drawer.Screen name="Login" component={LoginNavigator} />
+      <Drawer.Screen name="Signup" component={SignupNavigator}  />
+      <Drawer.Screen name="Add Casher" component={AddCasherNavigator}  />
+      <Drawer.Screen name="Blacklist" component={BlacklistNavigator}  />
   </Drawer.Navigator>
 );
 
