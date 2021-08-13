@@ -21,7 +21,7 @@ export default function SignupNavigator({navigation} : any) {
         component={SignupScreen}
         options={{ 
           headerLeft: () => (
-            <Icon name= "menu" size={30} style={{paddingLeft: 10}} color="#000" onPress={() => navigation.openDrawer()}></Icon>
+            <Icon name= "arrow-left" size={30} style={{paddingLeft: 10}} color="#000" onPress={() => navigation.navigate("Home")}></Icon>
           ) 
        }}
       />

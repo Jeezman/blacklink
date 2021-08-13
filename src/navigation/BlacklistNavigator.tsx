@@ -35,7 +35,7 @@
                 <Icon name= "arrow-back" size={30} style={{paddingLeft: 10}} color="#000" onPress={() => navigation.goBack()}></Icon>
               ),
               headerRight: () => (
-                <Icon name= "search" size={30} style={{paddingRight: 15}} color="#000" ></Icon>
+                <Icon name= "search" size={25} style={{paddingRight: 15}} color="#000" ></Icon>
               ) 
          }}
        />
