@@ -19,12 +19,13 @@ import SignupNavigator from './SignupNavigator';
 import BlacklistScreen from '../screens/Blacklist/BlacklistScreen';
 import BlacklistNavigator from './BlacklistNavigator';
 import AddCasherNavigator from './AddCasherNavigator';
+import  Icon  from 'react-native-vector-icons/Ionicons';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> 
       <DrawerScreen />
     </NavigationContainer>
   );
@@ -36,25 +37,40 @@ const Stack = createStackNavigator();
 const BlacklistStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const BlacklistStackScreen = ({navigation} : any) => (
+  <BlacklistStack.Navigator>
+  <BlacklistStack.Screen
+    name="Blacklist"
+    component={BlacklistScreen}
+    options={{
+         headerTitle: 'Blacklist',
+         headerLeft: () => (
+           <Icon name= "arrow-back" size={30} style={{paddingLeft: 10}} color="#000" onPress={() => navigation.goBack()}></Icon>
+         ),
+         headerRight: () => (
+           <Icon name= "search" size={25} style={{paddingRight: 15}} color="#000" ></Icon>
+         ) 
+    }}
+  />
+</BlacklistStack.Navigator>
+);
+
 
 const DrawerScreen = () => (
-  <Drawer.Navigator initialRouteName="Login" >
-      <Drawer.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>    
+  <Drawer.Navigator initialRouteName="Logout" > 
       <Drawer.Screen name="Home" component={HomeScreen} />
-
-      <Drawer.Screen name="Signup" component={SignupNavigator} options={{ headerShown: false }} />
       <Drawer.Screen name="Add Casher" component={AddCasherScreen}  />
-      <Drawer.Screen name="Blacklist" component={BlacklistNavigator} options={{ headerShown: false }}/>
+      <Drawer.Screen name="Blacklist" component={BlacklistStackScreen} options={{ headerShown: false }}/>
+      <Drawer.Screen name="Logout" component={Root} options={{ headerShown: false }}/>
   </Drawer.Navigator>
 );
 
-function RootNavigator ()  {
+function Root ()  {
   return (
     <Stack.Navigator >
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} options={{title: 'Login'}}/>
-      <Stack.Screen name="Signup" component={SignupScreen} options={{title: 'Signup'}} />
-     <Stack.Screen name="AddCasher" component={AddCasherScreen} options={{title: 'Add Casher'}}/>
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }}  />
+     
   </Stack.Navigator>
     
   );

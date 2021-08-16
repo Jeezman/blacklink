@@ -37,13 +37,13 @@ export default function BlacklistScreen() {
             <Text>Anna Adebisi</Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>Roseline Emmanuel</Text>
+            <Text>Roseline Emma</Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>Tunde Abayomi</Text>
+            <Text>Tunde Bubu</Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>Yusuf Abubakar</Text>
+            <Text>Yusuf Shehu</Text>
           </Row>
         </Col>
         <Col size={25}>
@@ -68,7 +68,7 @@ export default function BlacklistScreen() {
         </Col>
         <Col size={20}>
         <Row style={styles.cell}>
-            <Text>Telegram Comments</Text>
+            <Text>Telegram Name</Text>
           </Row>
           <Row style={styles.cell}>
             <Text>Chris Okoye</Text>
@@ -77,24 +77,24 @@ export default function BlacklistScreen() {
             <Text>Anna Adebisi</Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>Roseline Emmanuel</Text>
+            <Text>Roseline Emma</Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>Tunde Abayomi</Text>
+            <Text>Tunde Bubu</Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>Yusuf Abubakar</Text>
+            <Text>Yusuf Shehu</Text>
           </Row>
         </Col>
         <Col size={25}>
         <Row style={styles.cell}>
-            <Text style={styles.cellText}>Comments</Text>
+            <Text>Comments</Text>
           </Row>
           <Row style={styles.cell}>
             <Text>He doesn't confirm payments on time</Text>
           </Row>
           <Row style={styles.cell}>
-            <Text>She doesn't confirm payments on time</Text>
+            <Text>She doesn't respond quickly</Text>
           </Row>
           <Row style={styles.cell}>
             <Text>She hardly picks her calls</Text>
@@ -122,7 +122,11 @@ const styles = StyleSheet.create({
   cell: {
     borderBottomWidth: 1,
     borderColor: '#000',
-    flex: 1, 
+    flex: 1,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    paddingTop:5,
+    paddingBottom:5, 
     justifyContent: 'center',
     alignItems: 'center'
   },

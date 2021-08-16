@@ -12,11 +12,6 @@ export default {
     screens: {
       Root: {
         screens: {
-          Home: {
-            screens: {
-              Home: 'home',
-            },
-          },
           Login: {
             screens: {
               Login: 'login',
@@ -25,6 +20,11 @@ export default {
           Signup: {
             screens: {
               Signup: 'signup',
+            },
+          },                    
+          Home: {
+            screens: {
+              Home: 'home',
             },
           },
           AddCasher: {
