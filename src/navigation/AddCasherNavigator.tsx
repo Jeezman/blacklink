@@ -5,26 +5,26 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import LoginScreen from '../screens/Login/LoginScreen';
-import SignupScreen from '../screens/Signup/SignupScreen';
+import AddCasherScreen from '../screens/AddCasher/AddCasherScreen';
 import  Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TabTwoParamList } from '../utils/types';
+import { TabFourParamList } from '../utils/types';
 
 //const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-const SignupStack = createStackNavigator<TabTwoParamList>();
+const AddCasherStack = createStackNavigator<TabFourParamList>();
 
-export default function SignupNavigator({navigation} : any) {
+export default function AddCasherNavigator({navigation} : any) {
   return (
-    <SignupStack.Navigator>
-      <SignupStack.Screen
-        name="Signup"
-        component={SignupScreen}
+    <AddCasherStack.Navigator>
+      <AddCasherStack.Screen
+        name="AddCasher"
+        component={AddCasherScreen}
         options={{ 
           headerLeft: () => (
-            <Icon name= "arrow-left" size={30} style={{paddingLeft: 10}} color="#000" onPress={() => navigation.navigate("Home")}></Icon>
+            <Icon name= "menu" size={30} style={{paddingLeft: 10}} color="#000" onPress={() => navigation.openDrawer()}></Icon>
           ) 
        }}
       />
-    </SignupStack.Navigator>
+    </AddCasherStack.Navigator>
   );
 }

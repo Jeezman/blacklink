@@ -45,9 +45,7 @@ export default function SignupScreen() {
               onPress={() => Alert.alert('Signup successful!')}
             />
           </View>
-
         </View>
-        
       </View>
     </ScrollView>
   );

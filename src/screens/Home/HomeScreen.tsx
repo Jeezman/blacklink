@@ -4,7 +4,7 @@ import { View, Text, Button, StyleSheet, StatusBar,TouchableOpacity } from 'reac
 import { useTheme } from '@react-navigation/native';
 
 
-export default function HomeScreen ({navigation} : any)  {
+export default function HomeScreen ()  {
 
   const { colors } = useTheme();
 
