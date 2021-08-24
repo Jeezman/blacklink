@@ -40,7 +40,7 @@ const Drawer = createDrawerNavigator();
 const BlacklistStackScreen = ({navigation} : any) => (
   <BlacklistStack.Navigator>
   <BlacklistStack.Screen
-    name="Blacklist"
+    name="List"
     component={BlacklistScreen}
     options={{
          headerTitle: 'Blacklist',
