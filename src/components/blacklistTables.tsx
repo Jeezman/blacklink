@@ -10,7 +10,7 @@ const BlacklistTables = () => {
 
  
     return (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={true}>
         <View style={styles.container}>
           <View style={styles.tableWrapper}>
             <Text style={styles.firstHeader}>No.</Text>
