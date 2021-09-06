@@ -2,7 +2,25 @@ import * as React from 'react';
 import { StyleSheet, TextInput, Linking, Button, Alert, ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
 
-export default function AddCasherScreen() {
+export default class AddCasherScreen extends React.Component {
+
+  constructor()
+  {
+    super ({});
+    this.state={
+      username: '',
+      phoneNumber: '',
+      bank: '',
+      telegramName: '',
+      comments: ''
+    }
+  }
+
+  submit()
+  {
+    console.warn(this.state)
+  }
+  render () {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -12,28 +30,28 @@ export default function AddCasherScreen() {
         <View style={styles.footer}>
           <Text style={styles.text_footer}>Username:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="chris@okoye" style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="chris@okoye" onChangeText={(text) => {this.setState({username: text})}} style={styles.textInput} autoCapitalize="none" 
             />
           </View>
           <Text style={styles.text_footer}>Phone Number:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="+234 8063345821" style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="+234 8063345821" onChangeText={(text) => {this.setState({phoneNumber: text})}} style={styles.textInput} autoCapitalize="none" 
             />
           </View>
           <Text style={styles.text_footer}>Bank:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="GTBank" style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="GTBank" onChangeText={(text) => {this.setState({bank: text})}} style={styles.textInput} autoCapitalize="none" 
             />
           </View>                    
           <View>
             <Text style={styles.text_footer}>Telegram Username (Optional):</Text>
             <View style={styles.action}>
-            <TextInput placeholder="Chris Okoye" style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="Chris Okoye" onChangeText={(text) => {this.setState({telegramName: text})}} style={styles.textInput} autoCapitalize="none" 
             />
             </View>
             <Text style={styles.text_footer}>Comments:</Text>
             <View style={styles.action}>
-              <TextInput multiline = {true} numberOfLines = {4} placeholder="Comments" style={styles.textAreaInput} autoCapitalize="none" 
+              <TextInput multiline = {true} numberOfLines = {4} placeholder="Comments" style={styles.textAreaInput} onChangeText={(text) => {this.setState({comments: text})}} autoCapitalize="none" 
               />
             </View>                     
           </View>
@@ -42,7 +60,7 @@ export default function AddCasherScreen() {
               title="Add to Blackist"
               color="#000"
               
-              onPress={() => Alert.alert('Add Casher successful!')}
+              onPress={() => {this.submit()}}
             />
           </View>
 
@@ -51,6 +69,7 @@ export default function AddCasherScreen() {
       </View>
     </ScrollView>
   );
+  }
 }
 
 const styles = StyleSheet.create({
