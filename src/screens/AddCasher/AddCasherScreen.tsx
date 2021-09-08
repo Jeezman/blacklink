@@ -1,26 +1,53 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, TextInput, Linking, Button, Alert, ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
+import { nanoid } from '@reduxjs/toolkit'
 
-export default class AddCasherScreen extends React.Component {
+import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {createBlacklist} from '../../redux/actions/index'
+import { RootState } from '../../redux/reducers';
 
-  constructor()
-  {
-    super ({});
-    this.state={
-      username: '',
-      phoneNumber: '',
-      bank: '',
-      telegramName: '',
-      comments: ''
+ const AddCasherScreen = () => {
+   
+  const [username, setUsername] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [bank, setBank] = useState('');
+  const [telegramName, setTelegramName] = useState('');
+  const [comments, setComments] = useState('');
+  const [list, setList] = useState('');
+  const dispatch = useDispatch(); 
+
+  const onUsernameChanged = (e:any) => setUsername(e.target.value)
+  const onPhoneNumberChanged = (e:any) => setPhoneNumber(e.target.value)
+  const onBankChanged = (e:any) => setBank(e.target.value)
+  const onTelegramNameChanged = (e:any) => setTelegramName(e.target.value)
+  const onCommentsChanged = (e:any) => setComments(e.target.value)
+
+  const onSavePostClicked = () => {
+    if (username && phoneNumber && bank && telegramName && comments) {
+      dispatch(
+        createBlacklist({
+          username,
+          phoneNumber,
+          bank,
+          telegramName,
+          comments
+        })
+      )
+
+      setUsername('')
+      setPhoneNumber('')
+      setBank('')
+      setTelegramName('')
+      setComments('')
     }
   }
 
-  submit()
-  {
-    console.warn(this.state)
-  }
-  render () {
+
+  
+
+  
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -30,28 +57,28 @@ export default class AddCasherScreen extends React.Component {
         <View style={styles.footer}>
           <Text style={styles.text_footer}>Username:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="chris@okoye" onChangeText={(text) => {this.setState({username: text})}} style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="chris@okoye" value= {username} onChange={onUsernameChanged} style={styles.textInput} autoCapitalize="none" 
             />
           </View>
           <Text style={styles.text_footer}>Phone Number:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="+234 8063345821" onChangeText={(text) => {this.setState({phoneNumber: text})}} style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="+234 8063345821" value= {phoneNumber} onChange={onPhoneNumberChanged} style={styles.textInput} autoCapitalize="none" 
             />
           </View>
           <Text style={styles.text_footer}>Bank:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="GTBank" onChangeText={(text) => {this.setState({bank: text})}} style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="GTBank" value= {bank} onChange={onBankChanged} style={styles.textInput} autoCapitalize="none" 
             />
           </View>                    
           <View>
             <Text style={styles.text_footer}>Telegram Username (Optional):</Text>
             <View style={styles.action}>
-            <TextInput placeholder="Chris Okoye" onChangeText={(text) => {this.setState({telegramName: text})}} style={styles.textInput} autoCapitalize="none" 
+            <TextInput placeholder="Chris Okoye" value= {telegramName} onChange={onTelegramNameChanged} style={styles.textInput} autoCapitalize="none" 
             />
             </View>
             <Text style={styles.text_footer}>Comments:</Text>
             <View style={styles.action}>
-              <TextInput multiline = {true} numberOfLines = {4} placeholder="Comments" style={styles.textAreaInput} onChangeText={(text) => {this.setState({comments: text})}} autoCapitalize="none" 
+              <TextInput multiline = {true} numberOfLines = {4} placeholder="Comments" style={styles.textAreaInput} value= {comments} onChange={onCommentsChanged} autoCapitalize="none" 
               />
             </View>                     
           </View>
@@ -60,7 +87,7 @@ export default class AddCasherScreen extends React.Component {
               title="Add to Blackist"
               color="#000"
               
-              onPress={() => {this.submit()}}
+              onPress={onSavePostClicked}
             />
           </View>
 
@@ -70,7 +97,7 @@ export default class AddCasherScreen extends React.Component {
     </ScrollView>
   );
   }
-}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -167,3 +194,7 @@ textCreateAccount: {
     marginTop: 20,
   },
 });
+
+
+  
+  export default AddCasherScreen;

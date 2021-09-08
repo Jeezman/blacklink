@@ -2,15 +2,21 @@
 
 import React, { useState, useMemo } from 'react';
 import { StyleSheet, View, Text, FlatList,ScrollView } from 'react-native';
+//import {connect} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/reducers';
 import MOCK_DATA from './MOCK_DATA.json';
 
 
 const BlacklistTables = () => {
- const [data, setData]=useState(useMemo(() => MOCK_DATA, []))
-
+ //const [data, setData]=useState(useMemo(() => MOCK_DATA, []))
  
+ const blackLists = useSelector((state: RootState) => state.list.blackList)
+
+
+
     return (
-      <ScrollView showsVerticalScrollIndicator={true}>
+      <ScrollView >
         <View style={styles.container}>
           <View style={styles.tableWrapper}>
             <Text style={styles.firstHeader}>No.</Text>
@@ -20,14 +26,15 @@ const BlacklistTables = () => {
             <Text style={styles.header}>Comments</Text>
           </View>
           <FlatList 
-          data={data}
-          renderItem={({item}) =>
+          data={blackLists}
+          keyExtractor={(item, index) => item.key.toString()}
+          renderItem={(data) =>
           <View style={styles.tableWrapper}>
-            <Text style={styles.firstRow}>{item.No}</Text>
-            <Text style={styles.row}>{item.name}</Text>
-            <Text style={styles.row}>{item.phone_number}</Text>
-            <Text style={styles.row}>{item.telegram_name}</Text>
-            <Text style={styles.row}>{item.comments}</Text>
+            <Text style={styles.firstRow}>{data.item.No}</Text>
+            <Text style={styles.row}>{data.item.name}</Text>
+            <Text style={styles.row}>{data.item.phone_number}</Text>
+            <Text style={styles.row}>{data.item.telegram_name}</Text>
+            <Text style={styles.row}>{data.item.comments}</Text>
           </View>
         }
           >
@@ -91,4 +98,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BlacklistTables
+
+
+
+export default  BlacklistTables;

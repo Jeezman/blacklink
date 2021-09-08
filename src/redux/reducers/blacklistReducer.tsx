@@ -1,7 +1,7 @@
 import {CREATE_BLACKLIST} from "../actions/types";
 
 const initialState = {
-    blackList:[]
+    blackList:[],
 }
 
 const blacklistReducer = (state = initialState, action:any) => {
@@ -9,9 +9,8 @@ const blacklistReducer = (state = initialState, action:any) => {
         case CREATE_BLACKLIST:
             return{
              ...state,
-            blackList: state.blackList   
+            blackList: action.blackList
             };
-            return;
         default:
             return state;
     }
