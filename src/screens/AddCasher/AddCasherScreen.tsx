@@ -1,53 +1,61 @@
-import React, {useState} from 'react';
-import { StyleSheet, TextInput, Linking, Button, Alert, ScrollView } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import { nanoid } from '@reduxjs/toolkit'
+import React, { useState, Component } from "react";
+import {
+  StyleSheet,
+  TextInput,
+  Linking,
+  Button,
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { Text, View } from "../../components/Themed";
+import { nanoid } from "@reduxjs/toolkit";
 
-import {connect} from 'react-redux';
-import {useDispatch} from 'react-redux';
-import {createBlacklist} from '../../redux/actions/index'
-import { RootState } from '../../redux/reducers';
+import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { createBlacklist } from "../../redux/actions/index";
+import { RootState } from "../../redux/reducers";
 
- const AddCasherScreen = () => {
-   
-  const [username, setUsername] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [bank, setBank] = useState('');
-  const [telegramName, setTelegramName] = useState('');
-  const [comments, setComments] = useState('');
-  const [list, setList] = useState('');
-  const dispatch = useDispatch(); 
+const AddCasherScreen = () => {
+  const [username, setUsername] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [bank, setBank] = useState("");
+  const [telegramName, setTelegramName] = useState("");
+  const [comments, setComments] = useState("");
+  const [blackList, setBlackList] = useState("");
+  const dispatch = useDispatch();
 
-  const onUsernameChanged = (e:any) => setUsername(e.target.value)
-  const onPhoneNumberChanged = (e:any) => setPhoneNumber(e.target.value)
-  const onBankChanged = (e:any) => setBank(e.target.value)
-  const onTelegramNameChanged = (e:any) => setTelegramName(e.target.value)
-  const onCommentsChanged = (e:any) => setComments(e.target.value)
+  const onUsernameChanged = (e: any) => setUsername(e);
+  const onPhoneNumberChanged = (e: any) => setPhoneNumber(e);
+  const onBankChanged = (e: any) => setBank(e);
+  const onTelegramNameChanged = (e: any) => setTelegramName(e);
+  const onCommentsChanged = (e: any) => setComments(e);
+
+  //console.log("username ", username);
 
   const onSavePostClicked = () => {
-    if (username && phoneNumber && bank && telegramName && comments) {
-      dispatch(
-        createBlacklist({
-          username,
-          phoneNumber,
-          bank,
-          telegramName,
-          comments
-        })
-      )
+    console.log("ON SAVE CLICK");
 
-      setUsername('')
-      setPhoneNumber('')
-      setBank('')
-      setTelegramName('')
-      setComments('')
-    }
-  }
+    console.log("ON SAVE CLICK 2");
+    dispatch(
+      createBlacklist({
+        username,
+        phoneNumber,
+        bank,
+        telegramName,
+        comments,
+      })
+    );
 
+    setUsername("");
+    setPhoneNumber("");
+    setBank("");
+    setTelegramName("");
+    setComments("");
+  };
 
-  
+  // const submitBlackList = (blackList: RootState) => dispatch(createBlacklist(blackList))
 
-  
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -57,144 +65,164 @@ import { RootState } from '../../redux/reducers';
         <View style={styles.footer}>
           <Text style={styles.text_footer}>Username:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="chris@okoye" value= {username} onChange={onUsernameChanged} style={styles.textInput} autoCapitalize="none" 
+            <TextInput
+              placeholder="chris@okoye"
+              value={username}
+              onChangeText={onUsernameChanged}
+              style={styles.textInput}
+              autoCapitalize="none"
             />
           </View>
           <Text style={styles.text_footer}>Phone Number:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="+234 8063345821" value= {phoneNumber} onChange={onPhoneNumberChanged} style={styles.textInput} autoCapitalize="none" 
+            <TextInput
+              placeholder="+234 8063345821"
+              value={phoneNumber}
+              onChangeText={onPhoneNumberChanged}
+              style={styles.textInput}
+              autoCapitalize="none"
             />
           </View>
           <Text style={styles.text_footer}>Bank:</Text>
           <View style={styles.action}>
-            <TextInput placeholder="GTBank" value= {bank} onChange={onBankChanged} style={styles.textInput} autoCapitalize="none" 
+            <TextInput
+              placeholder="GTBank"
+              value={bank}
+              onChangeText={onBankChanged}
+              style={styles.textInput}
+              autoCapitalize="none"
             />
-          </View>                    
+          </View>
           <View>
-            <Text style={styles.text_footer}>Telegram Username (Optional):</Text>
+            <Text style={styles.text_footer}>
+              Telegram Username (Optional):
+            </Text>
             <View style={styles.action}>
-            <TextInput placeholder="Chris Okoye" value= {telegramName} onChange={onTelegramNameChanged} style={styles.textInput} autoCapitalize="none" 
-            />
+              <TextInput
+                placeholder="Chris Okoye"
+                value={telegramName}
+                onChangeText={onTelegramNameChanged}
+                style={styles.textInput}
+                autoCapitalize="none"
+              />
             </View>
             <Text style={styles.text_footer}>Comments:</Text>
             <View style={styles.action}>
-              <TextInput multiline = {true} numberOfLines = {4} placeholder="Comments" style={styles.textAreaInput} value= {comments} onChange={onCommentsChanged} autoCapitalize="none" 
+              <TextInput
+                multiline={true}
+                numberOfLines={4}
+                placeholder="Comments"
+                style={styles.textAreaInput}
+                value={comments}
+                onChangeText={onCommentsChanged}
+                autoCapitalize="none"
               />
-            </View>                     
-          </View>
-          <View style={styles.button}>
-            <Button
-              title="Add to Blackist"
-              color="#000"
-              
-              onPress={onSavePostClicked}
-            />
+            </View>
           </View>
 
+          <Button
+            title="Add to Blackist"
+            color="#000"
+            onPress={onSavePostClicked}
+          />
         </View>
-        
       </View>
     </ScrollView>
   );
-  }
-
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     //alignItems: 'center',
     //justifyContent: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: "#fff",
   },
   scrollView: {
-    backgroundColor: '#fff',
-    
+    backgroundColor: "#fff",
   },
   header: {
-    flex:1,
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: "center",
     //backgroundColor: '#cecece',
     paddingHorizontal: 20,
     paddingVertical: 50,
-    paddingBottom: 30
-},
+    paddingBottom: 30,
+  },
   footer: {
     flex: 3,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     //borderTopLeftRadius: 30,
     //borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
-    
   },
   text_header: {
-    color: '#fff',
-    fontWeight: 'bold',
-   
-    fontSize: 30
-},
+    color: "#fff",
+    fontWeight: "bold",
+
+    fontSize: 30,
+  },
   text_footer: {
-    color: '#000',
+    color: "#000",
     fontSize: 18,
-    paddingBottom:5,
-    marginTop:10,
-},
-textInput: {
-  flex: 1,
-  height: 40,
-  paddingLeft:10,
-  
-},
-textAreaInput:{
-  height:100, 
-  textAlignVertical: 'top',
-  flex:1,
-  paddingTop:4,
-  paddingLeft:10,
-},
-textPassword: {
-  color: '#395697',
-  textDecorationLine: "underline",
-  textDecorationStyle: "solid",
-  textDecorationColor: "#395697",
-},
-textCreateAccount: {
-  color: '#395697',
-  textDecorationLine: "underline",
-  textDecorationStyle: "solid",
-  textDecorationColor: "#395697",
-  marginTop: 4,
-  paddingLeft: 5,
-  
-},
+    paddingBottom: 5,
+    marginTop: 10,
+  },
+  textInput: {
+    flex: 1,
+    height: 40,
+    paddingLeft: 10,
+  },
+  textAreaInput: {
+    height: 100,
+    textAlignVertical: "top",
+    flex: 1,
+    paddingTop: 4,
+    paddingLeft: 10,
+  },
+  textPassword: {
+    color: "#395697",
+    textDecorationLine: "underline",
+    textDecorationStyle: "solid",
+    textDecorationColor: "#395697",
+  },
+  textCreateAccount: {
+    color: "#395697",
+    textDecorationLine: "underline",
+    textDecorationStyle: "solid",
+    textDecorationColor: "#395697",
+    marginTop: 4,
+    paddingLeft: 5,
+  },
   title: {
-    fontSize: 30, 
-    textAlign: 'center',
-    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: "center",
+    fontWeight: "bold",
   },
   action: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     borderWidth: 1.5,
     //borderRadius: 4,
-},
-  userIcon:{
-    paddingLeft:10,
   },
-  eyeIcon:{
+  userIcon: {
+    paddingLeft: 10,
+  },
+  eyeIcon: {
     paddingRight: 10,
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
   button: {
     marginTop: 20,
+    backgroundColor: "#000",
+    padding: 10,
   },
 });
 
-
-  
-  export default AddCasherScreen;
+export default AddCasherScreen;
