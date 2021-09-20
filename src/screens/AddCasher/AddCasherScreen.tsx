@@ -22,7 +22,7 @@ const AddCasherScreen = () => {
   const [bank, setBank] = useState("");
   const [telegramName, setTelegramName] = useState("");
   const [comments, setComments] = useState("");
-  const [blackList, setBlackList] = useState("");
+
   const dispatch = useDispatch();
 
   const onUsernameChanged = (e: any) => setUsername(e);
@@ -34,9 +34,9 @@ const AddCasherScreen = () => {
   //console.log("username ", username);
 
   const onSavePostClicked = () => {
-    console.log("ON SAVE CLICK");
+    //console.log("ON SAVE CLICK");
 
-    console.log("ON SAVE CLICK 2");
+    //console.log("ON SAVE CLICK 2");
     dispatch(
       createBlacklist({
         username,
@@ -119,12 +119,13 @@ const AddCasherScreen = () => {
               />
             </View>
           </View>
-
-          <Button
-            title="Add to Blackist"
-            color="#000"
-            onPress={onSavePostClicked}
-          />
+          <View style={styles.button}>
+            <Button
+              title="Add to Blackist"
+              color="#000"
+              onPress={onSavePostClicked}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>

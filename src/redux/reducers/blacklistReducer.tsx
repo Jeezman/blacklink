@@ -7,7 +7,7 @@ const initialState = {
 const blacklistReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case CREATE_BLACKLIST:
-      console.log(action.payload);
+      //console.log(action.payload);
       return {
         ...state,
         blackList: [...state.blackList, action.payload],
