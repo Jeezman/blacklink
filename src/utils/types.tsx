@@ -4,8 +4,8 @@
  */
 
 export type RootStackParamList = {
-  Root: undefined;
-  //NotFound: undefined;
+  Root: string;
+  NotFound: undefined;
 };
 
 export type BottomTabParamList = {
@@ -14,10 +14,21 @@ export type BottomTabParamList = {
 };
 
 export type TabOneParamList = {
-  TabOneScreen: undefined;
-  NotFound: undefined;
+  Login: undefined;
 };
 
 export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+  Signup: undefined;
 };
+
+export type TabThreeParamList = {
+  Home: undefined;
+};
+
+export type TabFourParamList = {
+  AddCasher: undefined;
+};
+
+export type TabFiveParamList = {
+  Blacklist: undefined;
+}
