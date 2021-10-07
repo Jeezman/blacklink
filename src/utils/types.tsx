@@ -26,5 +26,9 @@ export type TabThreeParamList = {
 };
 
 export type TabFourParamList = {
-  Addcasher: undefined;
+  AddCasher: undefined;
+};
+
+export type TabFiveParamList = {
+  Blacklist: undefined;
 }
