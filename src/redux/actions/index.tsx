@@ -1,4 +1,4 @@
-import { CREATE_BLACKLIST, GET_ALL_BLACKLIST } from "./types";
+import { CREATE_BLACKLIST, GET_ALL_BLACKLIST, GET_USER } from "./types";
 
 let nextId = 1;
 export const createBlacklist = (blackList: any) => {
@@ -10,5 +10,12 @@ export const createBlacklist = (blackList: any) => {
       ...blackList,
       id: nextId++,
     },
+  };
+};
+
+export const getUser = (user: any) => {
+  return {
+    type: GET_USER,
+    payload: user,
   };
 };

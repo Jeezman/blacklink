@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-native-paper";
 import {
   StyleSheet,
@@ -11,7 +11,9 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -35,6 +37,8 @@ export default function LoginScreen({ navigation }: any) {
   };
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState("");
   const { username, password } = userInfo;
 
   const validationSchema = Yup.object({
@@ -42,7 +46,8 @@ export default function LoginScreen({ navigation }: any) {
     password: Yup.string().trim().required("Password is required!"),
   });
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: any, formikActions: any) => {
+    const { username, password } = values;
     setError(null);
     const response = await axios
       .post("https://blacklink-project.herokuapp.com/user/login", values)
@@ -52,45 +57,18 @@ export default function LoginScreen({ navigation }: any) {
       });
 
     if (response && response.data) {
-      //console.log(response);
-      navigation.navigate("Home");
-      setSuccess(response.data.message);
+      setSuccess(null);
+      await AsyncStorage.setItem("username", username);
+      let _username = await AsyncStorage.getItem("username");
+      if (_username !== null) {
+        setIsLoggedIn(true);
+        navigation.navigate("Home");
+        setSuccess(response.data.message);
+      }
     }
-  };
-  const handleLogin = (values: any, formikActions: any) => {
-    console.log();
-    axios
-      .post("https://blacklink-project.herokuapp.com/user/login", {
-        ...values,
-      })
-      .then((response) => {
-        // const result = response.data;
-        // const { status, data, message } = result;
-        // if (status !== "SUCCESS") {
-        // handleMessage(message, status);
-        // } else {
-        //navigation.navigate("Home", { ...data[0] });
-        //}
-        //{
-        // setUserInfo({ username: "", password: "" });
-        //}
-        if (validationSchema) {
-          console.log(response);
-          navigation.navigate("Home");
-        }
-        //console.log(response);
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
     formikActions.resetForm();
     formikActions.setSubmitting(false);
   };
-
-  // const handleOnChangeText = (value: any, fieldName: any) => {
-  // setUserInfo({ ...userInfo, [fieldName]: value });
-  //};
 
   const updateSecureTextEntry = () => {
     setData({
@@ -105,6 +83,7 @@ export default function LoginScreen({ navigation }: any) {
       confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
   };
+
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>

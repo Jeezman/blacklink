@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -68,7 +69,8 @@ export default function SignupScreen({ navigation }: any) {
     if (response && response.data) {
       setError(null);
       setSuccess(response.data.message);
-      //console.log(response);
+      console.log(phoneNumber);
+
       navigation.navigate("Home");
     }
 
