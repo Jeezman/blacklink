@@ -5,7 +5,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export function AuthLoadingScreen({ navigation }: any) {
   const [userToken, setUserToken] = useState("");
 
-  useEffect(() => {
+  {
+    /* useEffect(() => {
     console.log("auth");
     const _bootstrapAsync = async () => {
       let userToken;
@@ -15,6 +16,8 @@ export function AuthLoadingScreen({ navigation }: any) {
         if (userToken !== null) {
           setUserToken(userToken);
           //navigation.navigate("Home");
+        } else {
+          setUserToken("");
         }
       } catch (error) {
         console.log(error);
@@ -22,7 +25,8 @@ export function AuthLoadingScreen({ navigation }: any) {
     };
     _bootstrapAsync();
   }, []);
-
+*/
+  }
   return (
     <View style={styles.container}>
       <ActivityIndicator size="large" color="#000" />

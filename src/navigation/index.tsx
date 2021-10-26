@@ -10,7 +10,7 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ColorSchemeName, ActivityIndicator, View } from "react-native";
 import LinkingConfiguration from "./LinkingConfiguration";
 import LoginScreen from "../screens/Login/LoginScreen";
@@ -25,7 +25,7 @@ import BlacklistScreen from "../screens/Blacklist/BlacklistScreen";
 import BlacklistNavigator from "./BlacklistNavigator";
 import AddCasherNavigator from "./AddCasherNavigator";
 import Icon from "react-native-vector-icons/Ionicons";
-
+import LoginProvider, { useLogin } from "../components/LoginProvider";
 import { DrawerContent } from "../screens/DrawerContent/DrawerContent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -39,7 +39,7 @@ export default function Navigation(
 ) {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState("");
-
+  const { isLoggedIn } = useLogin();
   useEffect(() => {
     setTimeout(async () => {
       setIsLoading(false);
@@ -49,6 +49,8 @@ export default function Navigation(
         if (userToken !== null) {
           setUserToken(userToken);
           //navigation.navigate("Home");
+        } else {
+          setUserToken("");
         }
       } catch (error) {
         console.log(error);
@@ -56,18 +58,14 @@ export default function Navigation(
     }, 1000);
   }, []);
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      {isLoading ? (
-        <AuthLoadingScreen />
-      ) : userToken == null ? (
-        <AuthStackScreen />
-      ) : (
-        <DrawerScreen />
-      )}
-    </NavigationContainer>
+    <LoginProvider>
+      <NavigationContainer
+        linking={LinkingConfiguration}
+        theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      >
+        {isLoading ? <AuthLoadingScreen /> : <MainNavigator />}
+      </NavigationContainer>
+    </LoginProvider>
   );
 }
 
@@ -114,14 +112,11 @@ const AuthStackScreen = () => (
       component={LoginScreen}
       options={{ headerShown: false }}
     />
-    {/*<AuthStack.Screen name="Signup" component={SignupScreen} />*/}
+    <AuthStack.Screen name="Signup" component={SignupScreen} />
   </AuthStack.Navigator>
 );
 const DrawerScreen = () => (
-  <Drawer.Navigator
-    initialRouteName="Home"
-    drawerContent={(props) => <DrawerContent {...props} />}
-  >
+  <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
     <Drawer.Screen name="Home" component={HomeScreen} />
     <Drawer.Screen name="Add Casher" component={AddCasherScreen} />
     <Drawer.Screen
@@ -129,14 +124,12 @@ const DrawerScreen = () => (
       component={BlacklistStackScreen}
       options={{ headerShown: false }}
     />
-    <Drawer.Screen
-      name="Logout"
-      component={LoginScreen}
-      options={{ headerShown: false }}
-    />
   </Drawer.Navigator>
 );
-
+const MainNavigator = () => {
+  const { isLoggedIn } = useLogin();
+  return isLoggedIn ? <DrawerScreen /> : <AuthStackScreen />;
+};
 function Root() {
   return (
     <Stack.Navigator>

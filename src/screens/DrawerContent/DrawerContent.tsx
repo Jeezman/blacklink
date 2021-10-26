@@ -9,7 +9,7 @@ import {
   Drawer,
 } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { PreferencesContext } from "../../components/context";
+import LoginProvider, { useLogin } from "../../components/LoginProvider";
 import {
   DrawerContentScrollView,
   DrawerItem,
@@ -19,10 +19,8 @@ import {
 export function DrawerContent(props: DrawerContentComponentProps) {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const theme = useTheme();
-  const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
-
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { setIsLoggedIn } = useLogin();
   (async function bootStrap() {
     const username = await AsyncStorage.getItem("username");
     if (username !== null) {
@@ -34,9 +32,9 @@ export function DrawerContent(props: DrawerContentComponentProps) {
   const logout = async function () {
     try {
       await AsyncStorage.clear();
-      setIsLoggedIn(!isLoggedIn);
+      setIsLoggedIn(false);
       setName("");
-      props.navigation.navigate("Logout");
+      //props.navigation.navigate("Logout");
     } catch (error) {
       console.error("Error clearing app data.");
     }

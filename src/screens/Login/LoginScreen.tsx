@@ -20,6 +20,7 @@ import * as Yup from "yup";
 
 //API client
 import axios from "axios";
+import { useLogin } from "../../components/LoginProvider";
 
 export default function LoginScreen({ navigation }: any) {
   const [data, setData] = React.useState({
@@ -37,10 +38,10 @@ export default function LoginScreen({ navigation }: any) {
   };
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState("");
   const { username, password } = userInfo;
-
+  const { setIsLoggedIn } = useLogin();
   const validationSchema = Yup.object({
     username: Yup.string().trim().required("Username is required!"),
     password: Yup.string().trim().required("Password is required!"),
@@ -62,7 +63,7 @@ export default function LoginScreen({ navigation }: any) {
       let _username = await AsyncStorage.getItem("username");
       if (_username !== null) {
         setIsLoggedIn(true);
-        navigation.navigate("Home");
+        //navigation.navigate("Home");
         setSuccess(response.data.message);
       }
     }
