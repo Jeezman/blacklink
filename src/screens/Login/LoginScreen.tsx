@@ -36,19 +36,18 @@ export default function LoginScreen({ navigation }: any) {
     username: "",
     password: "",
   };
-  const [success, setSuccess] = useState(null);
+
   const [error, setError] = useState(null);
   //const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [name, setName] = useState("");
+  const [user, setUser] = useState({});
   const { username, password } = userInfo;
-  const { setIsLoggedIn } = useLogin();
+  const { setIsLoggedIn, setProfile } = useLogin();
   const validationSchema = Yup.object({
     username: Yup.string().trim().required("Username is required!"),
     password: Yup.string().trim().required("Password is required!"),
   });
 
   const onSubmit = async (values: any, formikActions: any) => {
-    const { username, password } = values;
     setError(null);
     const response = await axios
       .post("https://blacklink-project.herokuapp.com/user/login", values)
@@ -58,14 +57,9 @@ export default function LoginScreen({ navigation }: any) {
       });
 
     if (response && response.data) {
-      setSuccess(null);
-      await AsyncStorage.setItem("username", username);
-      let _username = await AsyncStorage.getItem("username");
-      if (_username !== null) {
-        setIsLoggedIn(true);
-        //navigation.navigate("Home");
-        setSuccess(response.data.message);
-      }
+      setProfile(response.data.user);
+      //await AsyncStorage.setItem("user", response.data.user.username);
+      setIsLoggedIn(true);
     }
     formikActions.resetForm();
     formikActions.setSubmitting(false);
@@ -91,8 +85,8 @@ export default function LoginScreen({ navigation }: any) {
         <View style={styles.header}>
           <Text style={styles.title}>LOGIN</Text>
         </View>
-        {!error && <Text style={styles.success}>{success ? success : ""}</Text>}
-        {!success && <Text style={styles.formError}>{error ? error : ""}</Text>}
+
+        <Text style={styles.formError}>{error ? error : ""}</Text>
         <Formik
           initialValues={userInfo}
           validationSchema={validationSchema}

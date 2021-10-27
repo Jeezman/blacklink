@@ -15,87 +15,16 @@ import {
   DrawerItem,
   DrawerContentComponentProps,
 } from "@react-navigation/drawer";
+import { set } from "react-native-reanimated";
 
 export function DrawerContent(props: DrawerContentComponentProps) {
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { setIsLoggedIn } = useLogin();
-  (async function bootStrap() {
-    const username = await AsyncStorage.getItem("username");
-    if (username !== null) {
-      console.log("in bootsrap username ", username);
-      setName(username);
-    }
-  })();
-
-  const logout = async function () {
-    try {
-      await AsyncStorage.clear();
-      setIsLoggedIn(false);
-      setName("");
-      //props.navigation.navigate("Logout");
-    } catch (error) {
-      console.error("Error clearing app data.");
-    }
-  };
+  const { setIsLoggedIn, profile } = useLogin();
 
   const initials = Array.prototype.map
-    .call(name.split(" "), function (x) {
+    .call(profile.username.split(" "), function (x) {
       return x.substring(0, 1).toUpperCase();
     })
     .join("");
-
-  const route = props.navigation.getState();
-
-  {
-    /*useEffect(() => {
-    if (
-      route?.history &&
-      route.history[(route.history?.length || 0) - 1]?.key?.includes("Home-")
-    )
-      retrieveData();
-    console.log(route);
-  }, [route.history]);*/
-  }
-
-  //   useEffect(() => {
-  //     // retrieveData();
-  //     async function retrieveData() {
-  //       const username = await AsyncStorage.getItem("username");
-  //       return username;
-
-  //       //   if (username !== null) {
-  //       //     console.log("username not null ", username);
-  //       //     setName(username);
-  //       //   }
-  //     }
-
-  //     retrieveData().then((response) => {
-  //       console.log("response ", response);
-  //       if (response) {
-  //         setName(response);
-  //       } else {
-  //         console.log("no response");
-  //       }
-  //     });
-  //   }, [name, setName]);
-
-  //   const retrieveData = async () => {
-  //     try {
-  //       const userName = await AsyncStorage.getItem("username");
-  //       //   const number = await AsyncStorage.getItem("phoneNumber");
-  //       console.log("username is ", userName);
-
-  //       if (userName !== null) {
-  //         setName(userName);
-  //         setIsLoggedIn(isLoggedIn);
-  //         console.log(userName);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
 
   return (
     <View style={{ flex: 1 }}>
@@ -115,9 +44,9 @@ export function DrawerContent(props: DrawerContentComponentProps) {
                 style={styles.avatar}
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}>{name}</Title>
+                <Title style={styles.title}>{profile.username}</Title>
 
-                <Caption style={styles.caption}>08063323914</Caption>
+                <Caption style={styles.caption}>{profile.phoneNumber}</Caption>
               </View>
             </View>
           </View>
@@ -170,7 +99,7 @@ export function DrawerContent(props: DrawerContentComponentProps) {
                   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               }}
               label="Logout"
-              onPress={logout}
+              onPress={() => setIsLoggedIn(false)}
             />
           </Drawer.Section>
         </View>
