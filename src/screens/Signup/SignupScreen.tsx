@@ -12,12 +12,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 //API client
 import axios from "axios";
 import { response } from "express";
+import { useLogin } from "../../components/LoginProvider";
 
 export default function SignupScreen({ navigation }: any) {
   const userInfo = {
@@ -30,7 +32,7 @@ export default function SignupScreen({ navigation }: any) {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const { name, username, phoneNumber, password, confirmPassword } = userInfo;
-
+  const { setIsLoggedIn, setProfile } = useLogin();
   const validationSchema = Yup.object({
     name: Yup.string()
       .trim()
@@ -68,7 +70,10 @@ export default function SignupScreen({ navigation }: any) {
     if (response && response.data) {
       setError(null);
       setSuccess(response.data.message);
-      //console.log(response);
+      setIsLoggedIn(true);
+      setProfile(response.data.user);
+      console.log(phoneNumber);
+
       navigation.navigate("Home");
     }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-native-paper";
 import {
   StyleSheet,
@@ -11,13 +11,16 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 //API client
 import axios from "axios";
+import { useLogin } from "../../components/LoginProvider";
 
 export default function LoginScreen({ navigation }: any) {
   const [data, setData] = React.useState({
@@ -33,16 +36,18 @@ export default function LoginScreen({ navigation }: any) {
     username: "",
     password: "",
   };
-  const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
-  const { username, password } = userInfo;
 
+  const [error, setError] = useState(null);
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+  const { username, password } = userInfo;
+  const { setIsLoggedIn, setProfile } = useLogin();
   const validationSchema = Yup.object({
     username: Yup.string().trim().required("Username is required!"),
     password: Yup.string().trim().required("Password is required!"),
   });
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: any, formikActions: any) => {
     setError(null);
     const response = await axios
       .post("https://blacklink-project.herokuapp.com/user/login", values)
@@ -52,45 +57,13 @@ export default function LoginScreen({ navigation }: any) {
       });
 
     if (response && response.data) {
-      //console.log(response);
-      navigation.navigate("Home");
-      setSuccess(response.data.message);
+      setProfile(response.data.user);
+      //await AsyncStorage.setItem("user", response.data.user.username);
+      setIsLoggedIn(true);
     }
-  };
-  const handleLogin = (values: any, formikActions: any) => {
-    console.log();
-    axios
-      .post("https://blacklink-project.herokuapp.com/user/login", {
-        ...values,
-      })
-      .then((response) => {
-        // const result = response.data;
-        // const { status, data, message } = result;
-        // if (status !== "SUCCESS") {
-        // handleMessage(message, status);
-        // } else {
-        //navigation.navigate("Home", { ...data[0] });
-        //}
-        //{
-        // setUserInfo({ username: "", password: "" });
-        //}
-        if (validationSchema) {
-          console.log(response);
-          navigation.navigate("Home");
-        }
-        //console.log(response);
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
     formikActions.resetForm();
     formikActions.setSubmitting(false);
   };
-
-  // const handleOnChangeText = (value: any, fieldName: any) => {
-  // setUserInfo({ ...userInfo, [fieldName]: value });
-  //};
 
   const updateSecureTextEntry = () => {
     setData({
@@ -105,14 +78,15 @@ export default function LoginScreen({ navigation }: any) {
       confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
   };
+
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>LOGIN</Text>
         </View>
-        {!error && <Text style={styles.success}>{success ? success : ""}</Text>}
-        {!success && <Text style={styles.formError}>{error ? error : ""}</Text>}
+
+        <Text style={styles.formError}>{error ? error : ""}</Text>
         <Formik
           initialValues={userInfo}
           validationSchema={validationSchema}

@@ -1,14 +1,12 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-
-import blacklistReducer from './blacklistReducer';
-
+import loginReducer from "./loginReducer";
+import blacklistReducer from "./blacklistReducer";
 
 const rootReducer = combineReducers({
+  list: blacklistReducer,
+  loginReducer,
+});
 
-        list: blacklistReducer,
-
-})
-
-export type RootState = ReturnType<typeof rootReducer>
-export default rootReducer
+export type RootState = ReturnType<typeof rootReducer>;
+export default rootReducer;
