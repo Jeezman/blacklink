@@ -18,7 +18,17 @@ import {
 import { set } from "react-native-reanimated";
 
 export function DrawerContent(props: DrawerContentComponentProps) {
-  const { setIsLoggedIn, profile } = useLogin();
+  const { setIsLoggedIn, profile, setProfile } = useLogin();
+
+  const logout = async function () {
+    try {
+      await AsyncStorage.clear();
+      setIsLoggedIn(false);
+      setProfile({ name: "", username: "", phoneNumber: "", password: "" });
+    } catch (error) {
+      console.error("Error clearing app data.");
+    }
+  };
 
   const initials = Array.prototype.map
     .call(profile.username.split(" "), function (x) {
@@ -99,7 +109,7 @@ export function DrawerContent(props: DrawerContentComponentProps) {
                   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               }}
               label="Logout"
-              onPress={() => setIsLoggedIn(false)}
+              onPress={logout}
             />
           </Drawer.Section>
         </View>

@@ -1,4 +1,7 @@
-import React, { useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { userInfo } from "node:os";
+import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { boolean, string } from "yup";
 
@@ -30,6 +33,21 @@ const LoginProvider = ({ children }: any) => {
     phoneNumber: "",
     password: "",
   });
+  const fetchData = async () => {
+    const token = await AsyncStorage.getItem("username");
+    if (token !== null) {
+      setProfile(JSON.parse(token));
+      setIsLoggedIn(true);
+      //console.log(token);
+    } else {
+      setProfile({ name: "", username: "", phoneNumber: "", password: "" });
+      setIsLoggedIn(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <LoginContext.Provider
       value={{ isLoggedIn, setIsLoggedIn, profile, setProfile }}

@@ -28,6 +28,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import LoginProvider, { useLogin } from "../components/LoginProvider";
 import { DrawerContent } from "../screens/DrawerContent/DrawerContent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { profile } from "console";
 
 export default function Navigation(
   {
@@ -39,7 +40,7 @@ export default function Navigation(
 ) {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState("");
-  const { isLoggedIn } = useLogin();
+  const { isLoggedIn, profile, setProfile } = useLogin();
   useEffect(() => {
     setTimeout(async () => {
       setIsLoading(false);
@@ -127,8 +128,13 @@ const DrawerScreen = () => (
   </Drawer.Navigator>
 );
 const MainNavigator = () => {
-  const { isLoggedIn } = useLogin();
-  return isLoggedIn ? <DrawerScreen /> : <AuthStackScreen />;
+  const { isLoggedIn, profile } = useLogin();
+
+  return isLoggedIn && profile !== null ? (
+    <DrawerScreen />
+  ) : (
+    <AuthStackScreen />
+  );
 };
 function Root() {
   return (
