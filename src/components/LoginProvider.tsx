@@ -1,11 +1,14 @@
-import React, { useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { userInfo } from "node:os";
+import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
 import { boolean, string } from "yup";
 
 interface IAuth {
   name: string;
   username: string;
-  phoneNumber: string;
+  email: string;
   password: string;
 }
 type LoginState = {
@@ -18,7 +21,7 @@ type LoginState = {
 const LoginContext = createContext<LoginState>({
   isLoggedIn: false,
   setIsLoggedIn: boolean,
-  profile: { name: "", username: "", phoneNumber: "", password: "" },
+  profile: { name: "", username: "", email: "", password: "" },
   setProfile: (state: IAuth) => {},
 });
 
@@ -27,9 +30,24 @@ const LoginProvider = ({ children }: any) => {
   const [profile, setProfile] = useState({
     username: "",
     name: "",
-    phoneNumber: "",
+    email: "",
     password: "",
   });
+  const fetchData = async () => {
+    const token = await AsyncStorage.getItem("username");
+    if (token !== null) {
+      setProfile(JSON.parse(token));
+      setIsLoggedIn(true);
+      //console.log(token);
+    } else {
+      setProfile({ name: "", username: "", email: "", password: "" });
+      setIsLoggedIn(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <LoginContext.Provider
       value={{ isLoggedIn, setIsLoggedIn, profile, setProfile }}

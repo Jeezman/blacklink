@@ -21,6 +21,7 @@ import * as Yup from "yup";
 //API client
 import axios from "axios";
 import { useLogin } from "../../components/LoginProvider";
+import { profile } from "console";
 
 export default function LoginScreen({ navigation }: any) {
   const [data, setData] = React.useState({
@@ -57,9 +58,11 @@ export default function LoginScreen({ navigation }: any) {
       });
 
     if (response && response.data) {
-      setProfile(response.data.user);
-      //await AsyncStorage.setItem("user", response.data.user.username);
+      const _user = response.data.user;
+      await AsyncStorage.setItem("username", JSON.stringify(_user));
+      setProfile(_user);
       setIsLoggedIn(true);
+      console.log(_user);
     }
     formikActions.resetForm();
     formikActions.setSubmitting(false);
