@@ -24,14 +24,14 @@ export function DrawerContent(props: DrawerContentComponentProps) {
     try {
       await AsyncStorage.clear();
       setIsLoggedIn(false);
-      setProfile({ name: "", username: "", phoneNumber: "", password: "" });
+      setProfile({ name: "", username: "", email: "", password: "" });
     } catch (error) {
       console.error("Error clearing app data.");
     }
   };
 
   const initials = Array.prototype.map
-    .call(profile.username.split(" "), function (x) {
+    .call(profile.name.split(" "), function (x) {
       return x.substring(0, 1).toUpperCase();
     })
     .join("");
@@ -53,11 +53,11 @@ export function DrawerContent(props: DrawerContentComponentProps) {
                 }}
                 style={styles.avatar}
               />
-              <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                <Title style={styles.title}>{profile.username}</Title>
+            </View>
+            <View>
+              <Title style={styles.title}>{profile.name}</Title>
 
-                <Caption style={styles.caption}>{profile.phoneNumber}</Caption>
-              </View>
+              <Caption style={styles.caption}>{profile.email}</Caption>
             </View>
           </View>
           <Drawer.Section style={styles.drawerSection}>
@@ -124,6 +124,9 @@ const styles = StyleSheet.create({
   },
   userInfoSection: {
     paddingLeft: 20,
+    paddingBottom: 15,
+    borderBottomColor: "#E0E0E0",
+    borderBottomWidth: 1,
   },
   title: {
     color: "#000",
