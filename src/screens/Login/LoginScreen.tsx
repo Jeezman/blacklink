@@ -155,7 +155,7 @@ export default function LoginScreen({ navigation }: any) {
                     </View>
                     <Text
                       style={styles.textPassword}
-                      onPress={() => Linking.openURL("http://google.com")}
+                      onPress={() => navigation.navigate("ForgotPassword")}
                     >
                       Forgot Password?
                     </Text>

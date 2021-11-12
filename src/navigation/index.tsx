@@ -28,7 +28,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import LoginProvider, { useLogin } from "../components/LoginProvider";
 import { DrawerContent } from "../screens/DrawerContent/DrawerContent";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { profile } from "console";
+import ForgotPasswordScreen from "../screens/ForgotPassword/ForgotPasswordScreen";
 
 export default function Navigation(
   {
@@ -106,7 +106,7 @@ const BlacklistStackScreen = ({ navigation }: any) => (
 );
 
 const AuthStack = createStackNavigator();
-const AuthStackScreen = () => (
+const AuthStackScreen = ({ navigation }: any) => (
   <AuthStack.Navigator>
     <AuthStack.Screen
       name="Logout"
@@ -114,6 +114,11 @@ const AuthStackScreen = () => (
       options={{ headerShown: false }}
     />
     <AuthStack.Screen name="Signup" component={SignupScreen} />
+    <AuthStack.Screen
+      name="ForgotPassword"
+      component={ForgotPasswordScreen}
+      options={{ headerShown: false }}
+    />
   </AuthStack.Navigator>
 );
 const DrawerScreen = () => (
