@@ -23,73 +23,60 @@ import axios from "axios";
 import { useLogin } from "../../components/LoginProvider";
 import { profile } from "console";
 
-export default function LoginScreen({ navigation }: any) {
+export default function ForgotPasswordScreen({ navigation }: any) {
   const [data, setData] = React.useState({
-    username: "",
-    password: "",
-    confirm_password: "",
-    check_textInputChange: false,
-    secureTextEntry: true,
-    confirm_secureTextEntry: true,
+    email: "",
+    //redirectUrl: "https://blacklink-project.herokuapp.com/user/passwordReset",
   });
 
   const userInfo = {
-    username: "",
-    password: "",
+    email: "",
+    //redirectUrl: "https://blacklink-project.herokuapp.com/user/passwordReset",
   };
 
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   //const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
-  const { username, password } = userInfo;
+  const { email } = userInfo;
   const { setIsLoggedIn, setProfile } = useLogin();
   const validationSchema = Yup.object({
-    username: Yup.string().trim().required("Username is required!"),
-    password: Yup.string().trim().required("Password is required!"),
+    email: Yup.string().trim().required("Email is required!"),
   });
 
   const onSubmit = async (values: any, formikActions: any) => {
-    setError(null);
     const response = await axios
-      .post("https://blacklink-project.herokuapp.com/user/login", values)
+      .post(
+        "https://blacklink-project.herokuapp.com/user/requestPasswordReset",
+        values
+      )
       .catch((err) => {
         if (err && err.response) setError(err.response.data.message);
+        setSuccess(null);
         console.log(err);
       });
 
     if (response && response.data) {
-      const _user = response.data.user;
-      await AsyncStorage.setItem("username", JSON.stringify(_user));
-      setProfile(_user);
-      setIsLoggedIn(true);
-      console.log(_user);
+      setError(null);
+      //const _user = response.data.user;
+      //await AsyncStorage.setItem("username", JSON.stringify(_user));
+      //setProfile(_user);
+      //setIsLoggedIn(true);
+      setSuccess(response.data.message);
+      console.log(response.data.message);
     }
     formikActions.resetForm();
     formikActions.setSubmitting(false);
-  };
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
-  };
-
-  const updateConfirmSecureTextEntry = () => {
-    setData({
-      ...data,
-      confirm_secureTextEntry: !data.confirm_secureTextEntry,
-    });
   };
 
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>LOGIN</Text>
+          <Text style={styles.title}>PASSWORD RESET</Text>
         </View>
-
-        <Text style={styles.formError}>{error ? error : ""}</Text>
+        {!error && <Text style={styles.success}>{success ? success : ""}</Text>}
+        {!success && <Text style={styles.formError}>{error ? error : ""}</Text>}
         <Formik
           initialValues={userInfo}
           validationSchema={validationSchema}
@@ -104,65 +91,25 @@ export default function LoginScreen({ navigation }: any) {
             handleChange,
             handleSubmit,
           }) => {
-            const { username, password } = values;
+            const { email } = values;
             return (
               <>
-                {/*<TouchableWithoutFeedback onPress={Keyboard.dismiss}>*/}
                 <View style={styles.footer}>
-                  <Text style={styles.text_footer}>Username:</Text>
+                  <Text style={styles.text_footer}>Email Address:</Text>
                   <View style={styles.action}>
                     <TextInput
-                      value={username}
-                      placeholder="Johnny@gravy"
-                      onChangeText={handleChange("username")}
-                      onBlur={handleBlur("username")}
+                      value={email}
+                      placeholder="johnnygravy@gmail.com"
+                      onChangeText={handleChange("email")}
+                      onBlur={handleBlur("email")}
                       style={styles.textInput}
                       autoCapitalize="none"
                     />
                   </View>
-                  {touched.username && errors.username ? (
-                    <Text style={styles.error}>{errors.username}</Text>
+                  {touched.email && errors.email ? (
+                    <Text style={styles.error}>{errors.email}</Text>
                   ) : null}
-                  <View style={{ marginTop: 10 }}>
-                    <Text style={styles.text_footer}>Password:</Text>
-                    <View style={styles.action}>
-                      <TextInput
-                        secureTextEntry={data.secureTextEntry ? true : false}
-                        onChangeText={handleChange("password")}
-                        onBlur={handleBlur("password")}
-                        placeholder="**********"
-                        value={password}
-                        style={styles.textInput}
-                        autoCapitalize="none"
-                      />
-                      <TouchableOpacity onPress={updateSecureTextEntry}>
-                        {data.secureTextEntry ? (
-                          <Feather
-                            name="eye-off"
-                            color="grey"
-                            style={styles.eyeIcon}
-                            size={18}
-                          />
-                        ) : (
-                          <Feather
-                            name="eye"
-                            color="grey"
-                            style={styles.eyeIcon}
-                            size={18}
-                          />
-                        )}
-                      </TouchableOpacity>
-                    </View>
-                    <Text
-                      style={styles.textPassword}
-                      onPress={() => navigation.navigate("ForgotPassword")}
-                    >
-                      Forgot Password?
-                    </Text>
-                  </View>
-                  {touched.password && errors.password ? (
-                    <Text style={styles.error}>{errors.password}</Text>
-                  ) : null}
+
                   <View style={styles.button}>
                     <Button
                       color="black"
@@ -171,21 +118,10 @@ export default function LoginScreen({ navigation }: any) {
                       loading={isSubmitting}
                       disabled={isSubmitting}
                     >
-                      Login
+                      Submit
                     </Button>
                   </View>
-                  <View style={{ flex: 1, flexDirection: "row" }}>
-                    <Text style={styles.text_footer}>Or </Text>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate("Signup")}
-                    >
-                      <Text style={styles.textCreateAccount}>
-                        Create Account!
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
                 </View>
-                {/*</TouchableWithoutFeedback>*/}
               </>
             );
           }}

@@ -25,15 +25,15 @@ export default function SignupScreen({ navigation }: any) {
   const userInfo = {
     name: "",
     username: "",
-    phoneNumber: "",
+    email: "",
     password: "",
     confirmPassword: "",
   };
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
-  const { name, username, phoneNumber, password, confirmPassword } = userInfo;
+  const { name, username, email, password, confirmPassword } = userInfo;
   const { setIsLoggedIn, setProfile } = useLogin();
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object().shape({
     name: Yup.string()
       .trim()
       .min(4, "Invalid name!")
@@ -42,11 +42,11 @@ export default function SignupScreen({ navigation }: any) {
       .trim()
       .min(4, "Invalid username!")
       .required("Username is required!"),
-    phoneNumber: Yup.string()
+    email: Yup.string()
       .trim()
-      .min(11, "Invalid phonenumber!")
-      .max(11, "Invalid phonenumber")
-      .required("Phonenumber is required!"),
+      .email("Invalid email")
+      .required("Email is required"),
+
     password: Yup.string()
       .trim()
       .min(8, "Please enter a strong password!")
@@ -72,7 +72,7 @@ export default function SignupScreen({ navigation }: any) {
       setSuccess(response.data.message);
       setIsLoggedIn(true);
       setProfile(response.data.user);
-      console.log(phoneNumber);
+      console.log();
 
       navigation.navigate("Home");
     }
@@ -80,37 +80,6 @@ export default function SignupScreen({ navigation }: any) {
     formikActions.resetForm();
     formikActions.setSubmitting(false);
   };
-  {
-    /* const handleSignup = (userInfo: any) => {
-    console.log();
-    axios
-      .post("https://blacklink-project.herokuapp.com/user/signup", {
-        name: name,
-        username: username,
-        phoneNumber: phoneNumber,
-        password: password,
-        confirmPassword,
-      })
-      .then((response) => {
-        {
-          //setUserInfo({
-          // name: "",
-          // username: "",
-          // phoneNumber: "",
-          // password: "",
-          // confirmPassword: "",
-          //});
-        }
-        console.log(response);
-        navigation.navigate("Home");
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-*/
-  }
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -134,8 +103,7 @@ export default function SignupScreen({ navigation }: any) {
             handleChange,
             handleSubmit,
           }) => {
-            const { name, username, phoneNumber, password, confirmPassword } =
-              values;
+            const { name, username, email, password, confirmPassword } = values;
             return (
               <>
                 {/*<TouchableWithoutFeedback onPress={Keyboard.dismiss}>*/}
@@ -168,20 +136,19 @@ export default function SignupScreen({ navigation }: any) {
                   {touched.username && errors.username ? (
                     <Text style={styles.error}>{errors.username}</Text>
                   ) : null}
-                  <Text style={styles.text_footer}>Phone Number:</Text>
+                  <Text style={styles.text_footer}>Email Address:</Text>
                   <View style={styles.action}>
                     <TextInput
-                      value={phoneNumber}
-                      onChangeText={handleChange("phoneNumber")}
-                      onBlur={handleBlur("phoneNumber")}
-                      placeholder="+234 8063343912"
+                      value={email}
+                      onChangeText={handleChange("email")}
+                      onBlur={handleBlur("email")}
+                      placeholder="johnnygravvy@gmail.com"
                       style={styles.textInput}
-                      keyboardType="numeric"
                       autoCapitalize="none"
                     />
                   </View>
-                  {touched.phoneNumber && errors.phoneNumber ? (
-                    <Text style={styles.error}>{errors.phoneNumber}</Text>
+                  {touched.email && errors.email ? (
+                    <Text style={styles.error}>{errors.email}</Text>
                   ) : null}
                   <View>
                     <Text style={styles.text_footer}>Password:</Text>
